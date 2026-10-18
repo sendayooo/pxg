@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PXG TEAM — Central de Fichas</title>
+<style>
+:root{--bg:#07120d;--panel:#101f17;--panel2:#172b20;--line:#2b4937;--green:#b7ff54;--muted:#a6b9ab;--white:#f4f8f3;--red:#ff7777;--blue:#72c9ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#153622 0,#07120d 55%);color:var(--white);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:28px 20px 18px;border-bottom:1px solid var(--line);background:#08140ee8;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.wrap{max-width:1180px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border-radius:12px;background:var(--green);color:#07120d;display:grid;place-items:center;font-weight:1000;font-size:22px;transform:skew(-5deg)}h1{font-size:clamp(22px,4vw,34px);line-height:1.05;margin:0;letter-spacing:-1px} .eyebrow{color:var(--green);font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}.sub{color:var(--muted);margin:7px 0 0}.actions{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{border:1px solid var(--line);background:var(--panel2);color:var(--white);padding:10px 14px;border-radius:9px;cursor:pointer;font-weight:750;font-size:13px;transition:.15s}button:hover,.btn:hover{border-color:var(--green);transform:translateY(-1px)}button.primary{background:var(--green);color:#07120d;border-color:var(--green)}button.danger{color:#ffaaaa}
+main{max-width:1180px;margin:26px auto;padding:0 20px 50px}.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-bottom:20px}.hero-card,.panel,.npc-card{border:1px solid var(--line);background:linear-gradient(145deg,#14271b,#0d1a12);border-radius:16px;padding:20px}.hero h2{font-size:25px;margin:0 0 8px}.hero p{color:var(--muted);margin:0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#0a170f;border:1px solid var(--line);border-radius:12px;padding:14px}.stat b{font-size:24px;display:block;color:var(--green)}.stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0}.search{flex:1;min-width:190px;background:#0b1910;border:1px solid var(--line);color:white;padding:12px;border-radius:9px;font:inherit}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tabs button.active{background:var(--green);color:#08130c;border-color:var(--green)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.npc-card{padding:0;overflow:hidden}.card-head{padding:18px 18px 14px;background:linear-gradient(120deg,#1b3825,#102016);border-bottom:1px solid var(--line)}.number{color:var(--green);font-size:11px;font-weight:900;letter-spacing:1.5px}.card-head h2{margin:4px 0;font-size:24px}.meta{color:var(--muted);font-size:12px}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}.tag{border:1px solid #3b6047;border-radius:6px;padding:4px 7px;font-size:11px;color:#d6f4d9;background:#12271a}.card-body{padding:17px}.section-title{font-size:11px;letter-spacing:1.5px;color:var(--green);font-weight:900;margin:17px 0 8px}.section-title:first-child{margin-top:0}.attrs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.attr{background:#0a170f;border:1px solid #223d2b;border-radius:8px;padding:8px 10px}.attr-top{display:flex;justify-content:space-between;gap:8px;font-size:12px}.attr-top b{font-size:14px}.meter{height:4px;border-radius:10px;background:#203729;margin-top:6px;overflow:hidden}.meter i{display:block;height:100%;background:var(--green);border-radius:10px}.skills{display:grid;grid-template-columns:1fr 1fr;gap:7px}.skill{padding:8px 10px;border-radius:8px;background:#0b1a11;border:1px solid #203d2b;font-size:12px}.skill strong{display:block;font-size:13px}.plus{color:var(--green)}.minus{color:var(--red)}.ability{background:#0a170f;border:1px solid #34523c;padding:12px;border-radius:10px;font-size:13px}.ability b{display:block;color:var(--green);margin-bottom:5px}.ability + .ability{margin-top:8px}.card-actions{display:flex;gap:8px;margin-top:14px}.card-actions button{flex:1}.footer-note{color:var(--muted);font-size:12px;margin-top:18px}.modal-backdrop{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal{width:min(680px,100%);max-height:90vh;overflow:auto;background:#0e1d13;border:1px solid var(--line);border-radius:16px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.modal h2{margin:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted)}.field input,.field select,.field textarea{width:100%;background:#07120d;border:1px solid var(--line);color:white;border-radius:8px;padding:10px;font:inherit}.field textarea{min-height:76px;resize:vertical}.full{grid-column:1/-1}.roll-result{font-size:14px;color:var(--green);margin-top:10px}.empty{grid-column:1/-1;text-align:center;padding:38px;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.stats{gap:6px}.stat{padding:10px}.stat b{font-size:20px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}header{position:static}}
+@media print{body{background:white;color:#111}.wrap,main{max-width:none}.actions,.toolbar,.card-actions,.footer-note{display:none!important}.npc-card,.hero-card,.panel{background:white;color:#111;border:1px solid #aaa;break-inside:avoid}.card-head{background:#eee;color:#111}.meta,.hero p{color:#444}.attr,.skill,.ability{background:white;color:#111;border-color:#aaa}.section-title,.number,.ability b{color:#176327}.cards{grid-template-columns:1fr 1fr}header{position:static;background:white;color:#111}}
+
+/* PXG TEAM crest-inspired theme: blue, red, black and white */
+:root{--bg:#05070b;--panel:#101722;--panel2:#19283a;--line:#354a61;--green:#58b9ff;--muted:#b5c0ce;--white:#f7f8fb;--red:#ff2638;--blue:#1687d9}
+body{background:radial-gradient(ellipse at top,#123a60 0,#080c13 48%,#030407 100%)}
+header{background:#05070bed;border-bottom:2px solid #e91b2b}
+.logo.crest{width:62px;height:62px;border-radius:50%;background:transparent;transform:none;flex-shrink:0;filter:drop-shadow(0 3px 0 #000)}
+.logo.crest svg{display:block;width:100%;height:100%}
+.eyebrow,.number,.section-title,.stat b{color:var(--blue)}
+button,.btn{border-color:#344b63;background:#111c2a}
+button:hover,.btn:hover{border-color:var(--red)}button.primary{background:var(--red);color:#fff;border-color:var(--red)}button.danger{color:#ff8c98}
+.hero-card,.panel,.npc-card{border-color:#31465c;background:linear-gradient(145deg,#132943,#0a1019)}
+.hero-card{position:relative;overflow:hidden}.hero-card:after{content:'PXG';position:absolute;right:16px;bottom:-38px;font-weight:1000;font-size:100px;letter-spacing:-8px;color:#ffffff08;pointer-events:none}
+.hero h2{font-size:clamp(24px,4vw,32px);text-transform:uppercase;letter-spacing:-.8px}
+.hero-mark{display:flex;align-items:center;gap:8px;margin-top:18px;font-size:21px;font-weight:1000;letter-spacing:2px;color:#fff}.hero-mark span{display:inline-grid;place-items:center;background:var(--red);color:#fff;width:31px;height:31px;transform:rotate(45deg);font-size:20px}.hero-mark small{font-size:9px;letter-spacing:2px;color:var(--blue);margin-left:8px}
+.stat{background:#080e17;border-color:#293c52}.stat b{color:#fff}.stat span{color:#aab8c9}
+.search,.field input,.field select,.field textarea{background:#080e17;border-color:#34475c}
+.tabs button.active{background:var(--red);color:white;border-color:var(--red)}
+.card-head{background:linear-gradient(120deg,#123d68,#101723);border-bottom:1px solid #3b526b}
+.tag{border-color:#345c7f;color:#dceeff;background:#102b44}
+.attr{background:#080e17;border-color:#26394d}.meter{background:#243246}.meter i{background:linear-gradient(90deg,#137bc1,#61c5ff)}
+.skill{background:#0a121e;border-color:#27394e}.plus{color:#6fc6ff}.minus{color:#ff737e}
+.ability{background:#090f18;border-color:#354b64}.ability b{color:#ff4351}
+.modal{background:#0c1420;border-color:#3b4d63}.field label{color:#b5c0ce}
+@media print{body{background:white}.eyebrow,.number,.section-title,.stat b,.ability b{color:#164e7a}.card-head{background:#e9eef4}.hero-mark{color:#111}}
+
+
+/* Julian Loki — card dourada de chefe de elite */
+.npc-card.loki-gold{border-color:#c99a32;background:linear-gradient(145deg,#30240c,#171208);box-shadow:0 0 0 1px #8d6724,0 10px 30px #0005}
+.loki-gold .card-head{background:linear-gradient(120deg,#725018,#30220b);border-bottom-color:#c99a32}
+.loki-gold .number,.loki-gold .section-title{color:#f5c85b}
+.loki-gold .tag{border-color:#9c762e;color:#ffedb8;background:#392a10}
+.loki-gold .attr{background:#1b1408;border-color:#6e5224}
+.loki-gold .meter{background:#4a3513}.loki-gold .meter i{background:linear-gradient(90deg,#b47b19,#ffe08a)}
+.loki-gold .skill.plus{background:#241b0a;border-color:#73551e;color:#ffe6a0}
+.loki-gold .skill.minus{background:#21140b;border-color:#74412a}
+.loki-gold .ability{background:#1d1508;border-color:#9b742c}.loki-gold .ability b{color:#ffd56a}
+
+/* escudo real aplicado */
+.logo.crest.crest-image{width:86px;height:86px;object-fit:contain;border-radius:0;background:transparent;filter:drop-shadow(0 12px 20px rgba(0,0,0,.35))}
+.brand{align-items:center}
+.hero-card,.panel,.npc-card{box-shadow:0 18px 40px rgba(0,0,0,.22)}
+.card-head{background:linear-gradient(120deg,#0f3d66,#0b1422 48%,#2a1018)}
+.hero-card:before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,38,56,.08),transparent 46%,rgba(22,135,217,.12));pointer-events:none}
+
+</style>
+</head>
+<body>
+<header><div class="wrap top">
+  <div class="brand"><img class="logo crest crest-image" src="../../assets/crests/pxg.png" alt="Escudo PXG"><div><div class="eyebrow">Football Club • RPG</div><h1>PXG <span style="color:var(--red)">//</span> TEAM</h1><p class="sub">PLAYER DATABASE · Fichas, perícias e habilidades.</p></div></div>
+  <div class="actions"><button onclick="window.print()">⤓ Imprimir fichas</button><button class="primary" onclick="openEditor()">＋ Nova ficha</button></div>
+</div></header>
+<main>
+  <section class="hero">
+    <div class="hero-card"><div class="eyebrow">Paris X Gen · Official Database</div><h2>PXG TEAM <span style="color:var(--red)">—</span> Domine o campo.</h2><p>Central oficial de jogadores. Consulte atributos, confira bônus e penalidades, copie fichas durante a sessão.</p><div class="hero-mark">P <span>✕</span> G <small>FOOTBALL CLUB</small></div></div>
+    <div class="stats"><div class="stat"><b id="npcCount">4</b><span>Fichas</span></div><div class="stat"><b id="skillCount">16</b><span>Perícias positivas</span></div><div class="stat"><b>1–30</b><span>Escala de atributo</span></div></div>
+  </section>
+  <section class="panel" style="padding:14px 18px">
+    <div class="toolbar" style="margin:0">
+      <input id="search" class="search" placeholder="Buscar por nome, posição ou habilidade..." oninput="render()">
+      <div class="tabs" id="tabs"><button class="active" data-filter="Todos" onclick="setFilter('Todos',this)">Todos</button><button data-filter="Defesa" onclick="setFilter('Defesa',this)">Defesa</button><button data-filter="Apoio" onclick="setFilter('Apoio',this)">Apoio</button><button data-filter="Criação" onclick="setFilter('Criação',this)">Criação</button><button data-filter="Volante" onclick="setFilter('Volante',this)">Volante</button><button data-filter="Ataque" onclick="setFilter('Ataque',this)">Ataque</button></div>
+    </div>
+  </section>
+  <div class="toolbar" style="justify-content:space-between"><div><div class="eyebrow">Elenco cadastrado</div><h2 style="margin:0">Fichas dos NPCs</h2></div><button onclick="resetData()" class="danger">Restaurar fichas originais</button></div>
+  <section id="cards" class="cards"></section>
+  <p class="footer-note">Regra de modificadores: 1 = -5; 2–3 = -4; 4–5 = -3; 6–7 = -2; 8–9 = -1; 10–11 = 0; 12–13 = +1; 14–15 = +2; 16–17 = +3; 18–19 = +4; 20–21 = +5; 22–23 = +6; 24–25 = +7; 26–27 = +8; 28–29 = +9; 30 = +10.</p>
+</main>
+<div class="modal-backdrop" id="modal"><div class="modal"><div class="modal-head"><div><div class="eyebrow">Editor de elenco</div><h2 id="editorTitle">Criar ficha</h2></div><button onclick="closeEditor()">✕ Fechar</button></div>
+<form id="editorForm" onsubmit="saveEditor(event)" style="margin-top:18px"><div class="formgrid">
+<div class="field"><label>Nome</label><input name="name" required placeholder="Nome do NPC"></div>
+<div class="field"><label>Número / posição</label><input name="position" required placeholder="Ex.: Nº 8 — Meia"></div>
+<div class="field"><label>Categoria</label><select name="category"><option>Defesa</option><option>Apoio</option><option>Criação</option><option>Volante</option><option>Ataque</option></select></div>
+<div class="field"><label>Nível</label><input name="level" type="number" min="0" value="1"></div>
+<div class="field"><label>XP</label><input name="xp" type="number" min="0" value="49"></div>
+<div class="field"><label>AT</label><input name="at" value="Cérebro Tático"></div>
+<div class="field"><label>EGO</label><input name="ego" value="Holístico"></div>
+<div class="field"><label>Arquétipo</label><input name="archetype" required></div>
+<div class="field"><label>Playstyle</label><input name="playstyle"></div>
+<div class="field full"><label>Atributos (Drible, Físico, Velocidade, Técnica, Defesa, Egoísmo, Passe, Leitura de Jogo — separados por vírgula)</label><input name="attrs" required placeholder="10, 10, 10, 10, 10, 10, 10, 10"></div>
+<div class="field full"><label>Perícias positivas (uma por linha; use +3 Nome)</label><textarea name="positive" placeholder="+2 Passe Curto&#10;+1 Visão de Jogo"></textarea></div>
+<div class="field full"><label>Perícias negativas (uma por linha; use -1 Nome)</label><textarea name="negative" placeholder="-1 Finalização"></textarea></div>
+<div class="field full"><label>Talento e efeito</label><textarea name="talent" required></textarea></div>
+<div class="field full"><label>Habilidade inicial e efeito</label><textarea name="ability" required></textarea></div>
+</div><div class="actions" style="margin-top:16px"><button class="primary" type="submit">Salvar ficha</button><button type="button" onclick="closeEditor()">Cancelar</button></div></form></div></div>
+<script>
+const defaults = [
+{id:'n4',name:'NPC Nº 4',position:'Nº 4 — Zagueiro',category:'Defesa',level:1,xp:49,at:'Cérebro Defensivo',ego:'Holístico · Liberativo',archetype:'Muralha de Interceptação (+1 Interceptação)',playstyle:'Defensive Wall',attrs:[5,14,9,7,16,8,10,14],positive:['+3 Interceptação','+2 Marcação','+2 Antecipação de Jogadas','+1 Posicionamento Defensivo'],negative:['-2 Encandeamento','-1 Domínio'],talent:'Muralha Intransponível — Quando um adversário tentar atravessar sua zona defensiva, recebe +2 em Marcação ou Interceptação. Se vencer por 3 ou mais, interrompe a jogada e recupera a posse sem conceder uma segunda ação imediata ao adversário.',ability:'Corte de Emergência — Uma vez por posse defensiva, tente interceptar um passe ou bloquear dentro da sua zona com +2. Se conseguir, pode realizar um passe curto para um companheiro próximo.'},
+{id:'n2',name:'NPC Nº 2',position:'Nº 2 — Lateral-direito',category:'Apoio',level:1,xp:49,at:'Motor de Transição',ego:'Individualista · Adaptável',archetype:'Asa de Cobertura (+1 Recuperação de Posição)',playstyle:'Overlapping Run',attrs:[10,11,16,10,12,9,11,10],positive:['+3 Explosão','+2 Desarme','+2 Lançamento','+1 Recuperação de Posição'],negative:['-2 Bloqueio','-1 Execução'],talent:'Corredor de Duas Vias — Ao avançar pela lateral e ultrapassar o meio-campo, recebe +2 em Explosão para uma corrida de apoio. Se recuperar a bola ao retornar, recebe +1 em Desarme na primeira tentativa.',ability:'Ultrapassagem Relâmpago — Uma vez por posse, faça uma corrida pela lateral para oferecer uma linha de passe. Se receber a bola durante a corrida, ganha +2 no primeiro teste de Lançamento ou Drible para superar o marcador.'},
+{id:'n10',name:'NPC Nº 10',position:'Nº 10 — Meia ofensivo',category:'Criação',level:1,xp:49,at:'Cérebro Ofensivo',ego:'Holístico · Criativo',archetype:'Maestro de Ruptura (+1 Passe Decisivo)',playstyle:'Through Pass',attrs:[13,7,11,15,6,12,16,15],positive:['+3 Lançamento','+2 Precisão','+3 Leitura de Jogo','+2 Desarme'],negative:['-2 Duelo Físico','-1 Antecipação de Jogadas'],talent:'Geometria Impossível — Ao identificar um companheiro correndo entre dois defensores, recebe +2 em Passe em Profundidade. Se o passe superar a defesa por 3 ou mais, o receptor recebe +2 no primeiro teste de Domínio em movimento.',ability:'Passe de Ruptura — Uma vez por posse, execute um passe que atravesse uma linha defensiva. Recebe +2 em Precisão se o destinatário estiver correndo na direção do gol. A defesa ainda pode tentar interceptar normalmente.'},
+{id:'n6',name:'NPC Nº 6',position:'Nº 6 — Volante',category:'Volante',level:1,xp:49,at:'Cérebro Defensivo',ego:'Holístico · Resiliente',archetype:'Âncora de Campo (+1 Proteção de Zona)',playstyle:'Ball Recovery',attrs:[7,15,9,10,14,8,12,13],positive:['+3 Desarme','+2 Desarme','+2 Passe Curto','+2 Duelo Físico'],negative:['-2 Potência','-1 Explosão','-1 Criatividade'],talent:'Zona de Supressão — Enquanto permanecer entre a bola e a própria defesa, recebe +2 em Desarme. Se recuperar a bola, concede +1 em Precisão ao primeiro passe curto da transição.',ability:'Recuperação e Distribuição — Uma vez por posse defensiva, após vencer um teste de Desarme ou Interceptação, pode realizar imediatamente um passe curto para um companheiro desmarcado, com +2 em Precisão, desde que não atravesse mais de uma linha defensiva.'},
+{id:'yuzu',name:'Yuzu Kempachi',position:'Atacante — Especialista em Rabona',category:'Ataque',level:1,xp:0,at:'Finalizador Acrobático',ego:'Instintivo · Agressivo',archetype:'Especialista em Potência (+1 Potência)',playstyle:'Chute Acrobático / Potência',attrs:[11,14,10,10,9,6,2,7],positive:['+3 Potência (GN) · +1 Arquétipo · +2 Atributo · +2 Playstyle','+3 Criatividade (GN)','+3 Acrobacia (GN)','+3 Jogo Aéreo (GN)','+2 Explosão (GN)'],negative:['-3 Influência (GN)','-3 Frieza (GN)','-4 Adaptação de Jogada (GN)','-4 Encadeamento (GN)'],talent:'Arma — Nível 1 (Passiva, custo 0): A cada gol marcado, se o resultado do chute superar o dado do goleiro por pelo menos 3 pontos, Yuzu recebe +1 de Potência acumulativo a cada gol. Cada gol aumenta sua motivação para continuar chutando.',ability:'Rabona — Yuzu executa um chute de letra. O goleiro rola 2 dados para tentar acertar a trajetória da bola. Se acertar, nada muda e o teste de defesa segue normalmente. Se errar, Yuzu recebe +2 no teste do chute. Melhor dado informado: d20 +8 (Potência +3 GN, +1 Arquétipo, +2 Atributo e +2 Playstyle).'},
+{"id":"charles-chevalier","name":"Charles Chevalier","position":"Meio-campista ofensivo — New Gen World XI","category":"Criação","level":8,"xp":0,"at":"Passador Genial","ego":"PASSE MAIS CRUEL","archetype":"Passador de Elite (+10 Passe)","playstyle":"Manipulação do campo · Passes impossíveis · Dribles técnicos · Egoísmo não informado (valor neutro 10)","attrs":[28,20,23,26,16,10,30,27],"positive":["+10 Lançamento","+8 Leitura de Jogo","+7 Precisão","+9 Agilidade","+8 Domínio"],"negative":["-3 Desarme","-2 Ego","-2 Técnica"],"talent":"PASSE MAIS CRUEL — Uma vez por posse, recebe +3 no teste de passe ao explorar espaço entre defensores. Se for bem-sucedido, o aliado recebe +2 no próximo teste de finalização ou drible. O bônus depende de aproveitar o espaço criado; uma interceptação interrompe a habilidade.","ability":"MARIONETISTA — Uma vez por turno, recebe +2 no teste de drible contra um adversário. Em sucesso crítico, ultrapassa o marcador e mantém a posse sem penalidade de controle. Habilidade máxima — EXECUÇÃO PERFEITA: uma vez por partida, recebe +5 no passe, ignora 2 pontos de bônus defensivo de posicionamento e, se conectar com um aliado, concede +3 na próxima finalização. Exige uma linha de passe viável; sem espaço real, não concede bônus."},
+ {id:'mizuki-shiranami',name:'Mizuki Shiranami',position:'Jogador — posição não informada',category:'Criação',level:1,xp:0,at:'—',ego:'—',archetype:'Especialista em Execução (+7 Execução)',playstyle:'—',attrs:[12,7,10,14,8,2,11,9],positive:['+5 Execução','+1 Antecipação de jogadas','+4 Domínio','+1 Percepção espacial','+3 Equilíbrio'],negative:['-6 Frieza','-7 Criatividade','-2 Acrobacias','-3 Bloqueio'],talent:'Melhor dado — +7 Execução.',ability:'Execução — Melhor dado: +7 em Execução.'},
+ {id:'akira-ayanagi',name:'Akira Ayanagi',position:'Jogador — posição não informada',category:'Criação',level:1,xp:0,at:'Ativo',ego:'—',archetype:'Especialista em Precisão (+9 Precisão)',playstyle:'Ativo',attrs:[9,8,8,9,7,6,14,10],positive:['+3 Precisão','+2 Frieza','+2 Percepção Espacial'],negative:['-2 Explosão','-1 Potência'],talent:'Visão de Gelo — Você faz um passe de puro reflexo até o pé do seu colega de time. Você ganha +2 em Precisão no passe caso tenha sucesso em passar por 1 jogador adversário e achar um espaço meramente vazio no campo. Se o passe provocar um gol, você ganha +1 em Precisão no próximo passe se o seu colega optar por devolver a bola imediatamente. Você ganha +2 em Execução pro próximo chute.',ability:'Melhor dado — +9 Precisão.'},
+ {id:'fuchi-sunao',name:'Fuchi Sunao',position:'Jogador — posição não informada',category:'Ataque',level:1,xp:0,at:'—',ego:'—',archetype:'Especialista em Execução (+6 Execução)',playstyle:'—',attrs:[9,9,8,11,7,4,6,4],positive:['+3 Execução','+2 Duelo Físico','+2 Tempo de Reação','+1 Agilidade'],negative:['-2 Influência','-2 Lançamento','-2 Pressão'],talent:'Impactar — A velocidade de seu chute é a maior do sistema. Você pode chutar antes de qualquer tentativa de desarme ser processada, desde que tenha sucesso em um teste de Domínio com resultado maior que 3 contra um adversário.',ability:'Melhor dado — +6 em Execução com todos os bônus informados.'},
+ {id:'julian-loki',name:'Julian Loki',position:'Master Striker · Deus da Velocidade · PXG',category:'Ataque',level:10,xp:999,at:'Velocidade Absoluta',ego:'Explosivo · Individualista',archetype:'Deus da Velocidade (+3 Explosão ao arrancar)',playstyle:'God Speed Striker',attrs:[27,23,35,29,17,28,22,27],positive:['+6 Explosão','+5 Arrancada','+5 Agilidade','+4 Finalização','+4 Precisão','+4 Drible','+3 Domínio','+3 Potência','+3 Antecipação de Jogadas','+2 Percepção Espacial'],negative:['-2 Desarme','-1 Passe','-1 Encandeamento','-1 Egoísmo'],talent:'GOD SPEED: VELOCIDADE DIVINA — Talento passivo de velocidade e superioridade física. Recebe +3 em Explosão ao iniciar uma arrancada; +2 em Antecipação de Jogadas enquanto avança com a bola em espaço aberto; ao ultrapassar um defensor durante arrancada bem-sucedida, +2 em Finalização caso chute imediatamente. Uma vez por rodada, ignora a primeira penalidade de movimentação causada pela distância até o alvo, desde que exista rota livre. Limitação: bônus de condução exigem espaço; mudanças bruscas, bloqueios múltiplos e ausência de rota livre podem interromper a arrancada. Bônus de Explosão não acumulam com outros bônus de arrancada.',ability:'FIRST STEP: PRIMEIRO PASSO — Ativa, Mobilidade. Uma vez por rodada, recebe +4 em Explosão para iniciar a movimentação e +3 em Agilidade ao tentar ultrapassar um adversário. Se superar o marcador, pode continuar avançando com a bola e preparar finalização na mesma sequência, conforme as regras de ações. Se a rota for bloqueada ou o drible falhar, não recebe bônus de finalização por ultrapassagem.\n\nGOD SPEED: BEYOND THE LIMIT — Técnica ativa de elite; escolha uma forma até o fim da rodada. PHANTOM RUN: +5 Explosão, +7 Agilidade para superar o primeiro marcador; após ultrapassagem, +2 Técnica na finalização seguinte; primeiro defensor sofre -3 em Desarme contra a arrancada. Não ignora bloqueios nem garante ultrapassagem. LIGHTNING SHOT: +4 Execução, +4 Precisão, +3 Potência e +2 Explosão se finalizar imediatamente após arrancada bem-sucedida; se ultrapassar defensor na jogada, goleiro recebe -2 em Reação. Exige oportunidade de finalização e condições mínimas de execução. ABSOLUTE BREAKTHROUGH: +6 Explosão, +7 Agilidade e +3 Finalização após ultrapassar a última linha; se vencer contra o último defensor, finaliza imediatamente com +2 Técnica adicional. Uma vez por partida; se perder a disputa, -2 Explosão na próxima ação.\n\nWORLD’S FASTEST STRIKER — Despertar supremo, uso único por partida, em situação ofensiva decisiva. Durante a sequência: +6 Explosão, +4 Agilidade, +4 Execução, +3 Precisão; pode encadear arrancada, ultrapassagem e finalização se as regras permitirem. ZERO REACTION SHOT: vencendo a disputa de velocidade e criando linha de chute livre, goleiro sofre -3 em Reação. Após a sequência, Loki sofre -3 Explosão e -2 Drible durante a próxima rodada.'}
+];
+let data = loadData(), filter='Todos', editingId=null;
+// Atualiza automaticamente os negativos dos quatro NPCs padrão nesta versão.
+const negativeUpdates = {
+  n4: ['-2 Encandeamento','-1 Domínio'],
+  n2: ['-2 Bloqueio','-1 Execução'],
+  n10: ['-2 Disputa Física','-1 Desarme','-1 Duelo Físico'],
+  n6: ['-2 Potência','-1 Explosão','-1 Criatividade']
+};
+data = data.map(n => {
+  let updated = negativeUpdates[n.id] ? {...n, negative: negativeUpdates[n.id]} : n;
+  if(updated.id === 'julian-loki'){
+    const attrs = [...updated.attrs]; attrs[4] = 10;
+    const positive = [...(updated.positive || [])].filter(skill => !/^\+\d+ Bloqueio$/i.test(skill));
+    positive.push('+4 Bloqueio');
+    updated = {...updated, attrs, negative: ['-2 Desarme', ...((updated.negative || []).filter(skill => !/^-\d+ (Defesa|Desarme)$/i.test(skill)))], positive};
+  }
+  return updated;
+});
+persist();
+function loadData(){
+  try {
+    const saved = JSON.parse(localStorage.getItem('bl_npc_database'));
+    if(!Array.isArray(saved) || !saved.length) return structuredClone(defaults);
+    // Reconcile saved entries with defaults so old/incomplete browser data cannot stop rendering.
+    return saved.map(n => {
+      const base = defaults.find(d => d.id === n.id) || {};
+      const merged = {...base, ...n};
+      merged.attrs = Array.isArray(merged.attrs) && merged.attrs.length === 8 ? merged.attrs : (base.attrs || [10,10,10,10,10,10,10,10]);
+      merged.positive = Array.isArray(merged.positive) ? merged.positive : (base.positive || []);
+      merged.negative = Array.isArray(merged.negative) ? merged.negative : (base.negative || []);
+      merged.talent = merged.talent ?? base.talent ?? '';
+      merged.ability = merged.ability ?? base.ability ?? '';
+      return merged;
+    });
+  } catch(e) { return structuredClone(defaults); }
+}
+function persist(){
+  try { localStorage.setItem('bl_npc_database', JSON.stringify(data)); }
+  catch(e) { console.warn('Não foi possível salvar as fichas neste navegador.', e); }
+}
+if(!data.some(n=>n.id==='mizuki-shiranami')){data.push(structuredClone(defaults.find(n=>n.id==='mizuki-shiranami')));persist()}
+if(!data.some(n=>n.id==='julian-loki')){data.push(structuredClone(defaults.find(n=>n.id==='julian-loki')));persist()}
+const attrNames=['Drible','Físico','Velocidade','Técnica','Defesa','Egoísmo','Passe','Leitura de Jogo'];
+function modifier(v){if(v>=35)return 14;if(v===1)return -5;if(v<=3)return -4;if(v<=5)return -3;if(v<=7)return -2;if(v<=9)return -1;if(v<=11)return 0;if(v<=13)return 1;if(v<=15)return 2;if(v<=17)return 3;if(v<=19)return 4;if(v<=21)return 5;if(v<=23)return 6;if(v<=25)return 7;if(v<=27)return 8;if(v<=29)return 9;return 10}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){
+ const searchEl=document.getElementById('search');
+ const q=(searchEl && searchEl.value ? searchEl.value : '').toLowerCase();
+ const shown=data.filter(n=>(filter==='Todos'||n.category===filter)&&[n.name,n.position,n.archetype,n.playstyle,n.talent,n.ability].join(' ').toLowerCase().includes(q));
+ document.getElementById('npcCount').textContent=data.length;document.getElementById('skillCount').textContent=data.reduce((a,n)=>a+n.positive.length,0);
+ const cards=document.getElementById('cards');
+ if(!shown.length){cards.innerHTML='<div class="empty">Nenhuma ficha encontrada. Tente outro termo ou categoria.</div>';return}
+ cards.innerHTML=shown.map(n=>`<article class="npc-card ${n.id==='julian-loki'?'loki-gold':''}"><div class="card-head"><div class="number">${esc(n.position)}</div><h2>${esc(n.name)}</h2><div class="meta">NV-${n.level} · XP ${n.xp} · ${esc(n.playstyle||'Estilo não definido')}</div><div class="tags"><span class="tag">AT: ${esc(n.at)}</span><span class="tag">EGO: ${esc(n.ego)}</span><span class="tag">${esc(n.category)}</span></div></div><div class="card-body"><div class="section-title">ARQUÉTIPO</div><div style="font-size:13px">${esc(n.archetype)}</div><div class="section-title">ATRIBUTOS E MODIFICADORES</div><div class="attrs">${attrNames.map((a,i)=>`<div class="attr"><div class="attr-top"><span>${a}</span><b>${n.attrs[i]} <small style="color:${modifier(n.attrs[i])>=0?'var(--green)':'var(--red)'}">(${modifier(n.attrs[i])>0?'+':''}${modifier(n.attrs[i])})</small></b></div><div class="meter"><i style="width:${Math.max(0,Math.min(100,n.attrs[i]/30*100))}%"></i></div></div>`).join('')}</div><div class="section-title">PERÍCIAS POSITIVAS</div><div class="skills">${n.positive.map(s=>`<div class="skill plus">${esc(s)}</div>`).join('')}</div><div class="section-title">PERÍCIAS NEGATIVAS</div><div class="skills">${n.negative.map(s=>`<div class="skill minus">${esc(s)}</div>`).join('')}</div><div class="section-title">TALENTO EXCLUSIVO</div><div class="ability">${formatAbility(n.talent)}</div><div class="section-title">HABILIDADES</div>${String(n.ability||'').split(/\n\s*\n/).filter(x=>x.trim()).map(x=>`<div class="ability">${formatAbility(x)}</div>`).join('')}<div class="card-actions"><button onclick="copyCard('${n.id}')">▣ Copiar ficha</button><button onclick="editCard('${n.id}')">✎ Editar</button></div></div></article>`).join('');
+}
+function formatAbility(s){let p=String(s||'').split(' — ');return `<b>${esc(p.shift())}</b>${esc(p.join(' — '))}`}
+function setFilter(f,el){filter=f;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b===el));render()}
+function cardText(n){return `${n.name}\\n${n.position}\\nNV-${n.level} | XP ${n.xp}\\nAT — ${n.at}\\nEGO — ${n.ego}\\nARQUÉTIPO — ${n.archetype}\\nPLAYSTYLE — ${n.playstyle}\\n\\nATRIBUTOS\\n${attrNames.map((a,i)=>a+': '+n.attrs[i]+' (mod. '+(modifier(n.attrs[i])>0?'+':'')+modifier(n.attrs[i])+')').join('\\n')}\\n\\nPERÍCIAS POSITIVAS\\n${n.positive.join('\\n')}\\n\\nPERÍCIAS NEGATIVAS\\n${n.negative.join('\\n')}\\n\\nTALENTO: ${n.talent}\\n\\nHABILIDADE INICIAL: ${n.ability}`}
+async function copyCard(id){let n=data.find(x=>x.id===id);try{await navigator.clipboard.writeText(cardText(n));alert('Ficha copiada!')}catch(e){prompt('Copie sua ficha:',cardText(n))}}
+function openEditor(){editingId=null;document.getElementById('editorTitle').textContent='Criar ficha';document.getElementById('editorForm').reset();document.getElementById('modal').classList.add('open')}
+function closeEditor(){document.getElementById('modal').classList.remove('open')}
+function editCard(id){let n=data.find(x=>x.id===id);editingId=id;let f=document.getElementById('editorForm');document.getElementById('editorTitle').textContent='Editar ficha';for(let k of ['name','position','category','level','xp','at','ego','archetype','playstyle'])f.elements[k].value=n[k]??'';f.elements.attrs.value=n.attrs.join(', ');f.elements.positive.value=n.positive.join('\\n');f.elements.negative.value=n.negative.join('\\n');f.elements.talent.value=n.talent;f.elements.ability.value=n.ability;document.getElementById('modal').classList.add('open')}
+function saveEditor(e){e.preventDefault();let f=e.target,v=Object.fromEntries(new FormData(f).entries());let attrs=v.attrs.split(',').map(x=>Number(x.trim()));if(attrs.length!==8||attrs.some(x=>!Number.isFinite(x)||x<1||x>30)){alert('Informe exatamente 8 atributos entre 1 e 30, separados por vírgula.');return}let n={id:editingId||('npc'+Date.now()),name:v.name,position:v.position,category:v.category,level:Number(v.level),xp:Number(v.xp),at:v.at,ego:v.ego,archetype:v.archetype,playstyle:v.playstyle,attrs,positive:v.positive.split('\\n').map(x=>x.trim()).filter(Boolean),negative:v.negative.split('\\n').map(x=>x.trim()).filter(Boolean),talent:v.talent,ability:v.ability};if(editingId)data=data.map(x=>x.id===editingId?n:x);else data.push(n);persist();closeEditor();render()}
+function resetData(){if(confirm('Restaurar as fichas originais? As alterações salvas neste navegador serão perdidas.')){data=structuredClone(defaults);persist();render()}}
+try { render(); } catch(err) { console.error('Erro ao renderizar fichas:', err); const cards=document.getElementById('cards'); if(cards) cards.innerHTML='<div class="empty">Não foi possível carregar as fichas. Tente restaurar as fichas originais e recarregar a página.</div>'; }
+</script>
+</body>
+</html>

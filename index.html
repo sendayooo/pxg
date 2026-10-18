@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#05070b">
+  <title>Blue Lock — Central NEL</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#ubers" aria-label="Blue Lock Central">
+        <span class="brand-mark">BL</span>
+        <span>
+          <strong>BLUE LOCK</strong>
+          <small>CENTRAL NEL</small>
+        </span>
+      </a>
+
+      <nav class="team-nav" aria-label="Times">
+        <button class="team-button ubers active" data-team="ubers"><span>U</span> Ubers</button>
+        <button class="team-button pxg" data-team="pxg"><span>P</span> PXG</button>
+        <button class="team-button bastard" data-team="bastard"><span>B</span> Bastard</button>
+        <button class="team-button barcha" data-team="barcha"><span>F</span> Barcha</button>
+        <button class="team-button manshine" data-team="manshine"><span>M</span> Manshine</button>
+      </nav>
+
+      <a id="openStandalone" class="open-page" href="teams/ubers/index.html" target="_blank" rel="noopener">Abrir página ↗</a>
+    </header>
+
+    <section class="context-bar">
+      <div>
+        <span class="status-dot"></span>
+        <strong id="teamName">Ubers</strong>
+        <span id="teamDescription">Estratégia, defesa e controle de campo.</span>
+      </div>
+      <small>Selecione um time acima para trocar de elenco.</small>
+    </section>
+
+    <main class="viewer-wrap">
+      <div class="viewer-loading" id="loading">Carregando elenco…</div>
+      <iframe id="teamFrame" src="teams/ubers/index.html" title="Ubers — Central de Fichas"></iframe>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
